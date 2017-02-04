@@ -1,0 +1,45 @@
+@import "../../theme/variables.scss";
+
+.welcomeContainer {
+  position: absolute;
+  top: 0;
+  left:0;
+  right:0;
+  bottom:0;
+  overflow: hidden;
+  video {
+    object-fit: contain;
+    position: absolute;
+    top: auto;
+    right: 0;
+    left: auto;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -100;
+    background: url('https://s3-us-west-1.amazonaws.com/travelr-california/travelr-welcome-mp4-poster.png') no-repeat;
+    @include background-size('cover');
+  }
+  .welcomeMessage{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    position:absolute;
+    top: 50px;
+    left: 0;
+    right:0;
+    bottom:0;
+    text-align: center;
+    background: rgba(0,0,0,0.5);
+    @include background-size('cover');
+    @include border-radius(10px);
+    h1 ,h3 {
+      color: white;
+    }
+    h1 {
+      font-size: 3em;
+    }
+  }
+}
