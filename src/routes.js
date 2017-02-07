@@ -1,6 +1,6 @@
 import React from 'react';
 import {IndexRoute, Route} from 'react-router';
-import { isLoaded as isAuthLoaded, load as loadAuth } from 'redux/modules/auth';
+import { isLoaded as isAuthLoaded, load as loadAuth, instagramLogin } from 'redux/modules/auth';
 import {
     About,
     App,
@@ -19,17 +19,23 @@ export default (store) => {
   const requireLogin = (nextState, replace, cb) => {
     function checkAuth() {
       const search = nextState.location.search;
-      if(search) {
+      if (search) {
         const query = search.substring(1);
         const params = query.split('&');
         for (let index = 0; index < params.length; index++) {
           const pair = params[index].split('=');
           if (pair[0] === 'code') {
-            console.log(pair[1]);
+            store.dispatch(instagramLogin(pair[1]));
           }
         }
       }
-      const { auth: { user }} = store.getState();
+
+      const {
+        auth: {
+          user
+        }
+      } = store.getState();
+      console.log('user', user);
       if (!user) {
         // oops, not logged in, so can't be here!
         replace('/welcome');

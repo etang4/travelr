@@ -1,6 +1,6 @@
-const IS_VALID = 'redux-example/signup/IS_VALID';
-const IS_VALID_SUCCESS = 'redux-example/signup/IS_VALID_SUCCESS';
-const IS_VALID_FAIL = 'redux-example/signup/IS_VALID_FAIL';
+const IS_VALID = 'signup/IS_VALID';
+const IS_VALID_SUCCESS = 'signup/IS_VALID_SUCCESS';
+const IS_VALID_FAIL = 'signup/IS_VALID_FAIL';
 
 const initialState = {
   saveError: null,

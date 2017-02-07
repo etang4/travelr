@@ -98,7 +98,7 @@ export default class App extends Component {
               <i className="fa fa-github"/>
             </NavItem> */}
             {currentUser &&
-            <p className={styles.loggedInMessage + ' navbar-text'}><strong>{currentUser.name}</strong></p>}
+            <p className={styles.loggedInMessage + ' navbar-text'}><strong>{currentUser.name} {currentUser.accessToken}</strong></p>}
             {!currentUser &&
             <LinkContainer to="/signup">
               <NavItem eventKey={1}>Join</NavItem>
