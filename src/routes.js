@@ -39,7 +39,7 @@ export default (store) => {
             }
           } = store.getState();
 
-          //FIXME: Currently we assume any token is valid
+          // FIXME: Currently we assume any token is valid
           if (!user) {
             // oops, not logged in, so can't be here!
             replace('/welcome');
