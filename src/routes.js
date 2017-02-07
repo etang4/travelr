@@ -18,6 +18,17 @@ import {
 export default (store) => {
   const requireLogin = (nextState, replace, cb) => {
     function checkAuth() {
+      const search = nextState.location.search;
+      if(search) {
+        const query = search.substring(1);
+        const params = query.split('&');
+        for (let index = 0; index < params.length; index++) {
+          const pair = params[index].split('=');
+          if (pair[0] === 'code') {
+            console.log(pair[1]);
+          }
+        }
+      }
       const { auth: { user }} = store.getState();
       if (!user) {
         // oops, not logged in, so can't be here!
