@@ -22,30 +22,48 @@ export default (store) => {
       if (search) {
         const query = search.substring(1);
         const params = query.split('&');
+        let code;
         let accessToken;
         for (let index = 0; index < params.length; index++) {
           const pair = params[index].split('=');
           if (pair[0] === 'code') {
-            accessToken = pair[1];
+            code = pair[1];
             break;
           }
         }
-        // FIXME: Hacky way to access accessToken
-        store.dispatch(instagramLogin(accessToken))
-        .then(() =>{
-          const {
-            auth: {
-              user
-            }
-          } = store.getState();
+        const $jquery = require('jquery');
+        $jquery.ajax({
+          type: 'POST',
+          dataType: 'application/x-www-form-urlencoded',
+          url: 'https://api.instagram.com/oauth/access_token',
+          data: {
+            client_id: '0b58f672b7a74be189dc372fb67c8ffb',
+            client_secret: 'ae606e2a9ddb4934ba14e202360c6635',
+            grant_type: 'authorization_code',
+            redirect_uri: 'http://travelr-dev.herokuapp.com',
+            code: code
+          },
+          success: (result) => {
+            console.log(result);
+            accessToken = result.access_token;
+            // FIXME: Hacky way to access accessToken
+            store.dispatch(instagramLogin(accessToken))
+            .then(() =>{
+              const {
+                auth: {
+                  user
+                }
+              } = store.getState();
 
-          // FIXME: Currently we assume any token is valid
-          if (!user) {
-            // oops, not logged in, so can't be here!
-            replace('/welcome');
+              // FIXME: Currently we assume any token is valid
+              if (!user) {
+                // oops, not logged in, so can't be here!
+                replace('/welcome');
+              }
+
+              cb();
+            });
           }
-
-          cb();
         });
       } else {
         const {
