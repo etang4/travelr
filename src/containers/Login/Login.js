@@ -29,7 +29,7 @@ export default class Login extends Component {
         <Col
           md={4}
           mdOffset={4}
-          className="p20 animated fadeInDown"
+          className="animated fadeInDown"
         >
           <Helmet title="Login"/>
           <h1>Login</h1>
@@ -55,6 +55,15 @@ export default class Login extends Component {
                 onClick={this.handleSubmit}
               >
                 <i className="fa fa-sign-in"/>{' '}Log In
+              </button>
+              <button
+                className="mt10 btn btn-primary"
+                onClick={(event) => {
+                  event.preventDefault();
+                  document.location = 'https://instagram.com/oauth/authorize/?client_id=0b58f672b7a74be189dc372fb67c8ffb&redirect_uri=http://travelr-dev.herokuapp.com&response_type=code';
+                }}
+              >
+                <i className="fa fa-sign-in"/>{' '}Log In with Instagram
               </button>
             </form>
           </div>

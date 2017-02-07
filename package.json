@@ -94,6 +94,7 @@
     "hoist-non-react-statics": "^1.0.3",
     "http-proxy": "^1.12.0",
     "immutable": "^3.8.1",
+    "instagram-node": "^0.5.8",
     "invariant": "^2.2.0",
     "less": "^2.5.3",
     "less-loader": "^2.2.1",
