@@ -22,25 +22,44 @@ export default (store) => {
       if (search) {
         const query = search.substring(1);
         const params = query.split('&');
+        let accessToken;
         for (let index = 0; index < params.length; index++) {
           const pair = params[index].split('=');
           if (pair[0] === 'code') {
-            store.dispatch(instagramLogin(pair[1]));
+            accessToken = pair[1];
+            break;
           }
         }
-      }
+        // FIXME: Hacky way to access accessToken
+        store.dispatch(instagramLogin(accessToken))
+        .then(() =>{
+          const {
+            auth: {
+              user
+            }
+          } = store.getState();
 
-      const {
-        auth: {
-          user
+          //FIXME: Currently we assume any token is valid
+          if (!user) {
+            // oops, not logged in, so can't be here!
+            replace('/welcome');
+          }
+
+          cb();
+        });
+      } else {
+        const {
+          auth: {
+            user
+          }
+        } = store.getState();
+
+        if (!user) {
+          // oops, not logged in, so can't be here!
+          replace('/welcome');
         }
-      } = store.getState();
-      console.log('user', user);
-      if (!user) {
-        // oops, not logged in, so can't be here!
-        replace('/welcome');
+        cb();
       }
-      cb();
     }
 
     if (!isAuthLoaded(store.getState())) {
