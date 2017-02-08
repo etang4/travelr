@@ -32,8 +32,13 @@ export default (store) => {
           }
         }
         const request = require('request');
-        request.post({
+        request({
+          method: 'POST',
+          mode: 'cors',
           url: 'https://api.instagram.com/oauth/access_token',
+          headers: {
+            'Access-Control-Allow-Headers': '*'
+          },
           form: {
             client_id: '0b58f672b7a74be189dc372fb67c8ffb',
             client_secret: 'ae606e2a9ddb4934ba14e202360c6635',
@@ -43,7 +48,7 @@ export default (store) => {
           }
         },
           (err, httpResponse, body) => {
-            console.log(body);
+            console.log(err, httpResponse, body);
             accessToken = body.access_token;
             // FIXME: Hacky way to access accessToken
             store.dispatch(instagramLogin(accessToken))
