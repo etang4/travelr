@@ -104,7 +104,7 @@ module.exports = {
     fs: 'empty',
     net: 'empty',
     tls: 'empty'
-  }
+  },
   plugins: [
     // hot reload
     new webpack.HotModuleReplacementPlugin(),
