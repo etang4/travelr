@@ -100,6 +100,11 @@ module.exports = {
     ],
     extensions: ['', '.json', '.js', '.jsx']
   },
+  node: {
+    fs: 'empty',
+    net: 'empty',
+    tls: 'empty'
+  }
   plugins: [
     // hot reload
     new webpack.HotModuleReplacementPlugin(),

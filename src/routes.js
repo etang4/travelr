@@ -31,21 +31,20 @@ export default (store) => {
             break;
           }
         }
-        const $jquery = require('jquery');
-        $jquery.ajax({
-          type: 'POST',
-          dataType: 'application/x-www-form-urlencoded',
+        const request = require('request');
+        request.post({
           url: 'https://api.instagram.com/oauth/access_token',
-          data: {
+          form: {
             client_id: '0b58f672b7a74be189dc372fb67c8ffb',
             client_secret: 'ae606e2a9ddb4934ba14e202360c6635',
             grant_type: 'authorization_code',
             redirect_uri: 'http://travelr-dev.herokuapp.com',
             code: code
-          },
-          success: (result) => {
-            console.log(result);
-            accessToken = result.access_token;
+          }
+        },
+          (err, httpResponse, body) => {
+            console.log(body);
+            accessToken = body.access_token;
             // FIXME: Hacky way to access accessToken
             store.dispatch(instagramLogin(accessToken))
             .then(() =>{
@@ -64,7 +63,7 @@ export default (store) => {
               cb();
             });
           }
-        });
+        );
       } else {
         const {
           auth: {
